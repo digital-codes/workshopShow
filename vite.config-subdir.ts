@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/wsswhow/', // Set your subdirectory here
   plugins: [vue()],
   resolve: {
     alias: {

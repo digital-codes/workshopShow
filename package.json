@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
+    "build-wsshow": "vue-tsc -b && vite -c vite.config-subdir.ts build",
     "preview": "vite preview"
   },
   "dependencies": {
