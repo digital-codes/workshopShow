@@ -2,7 +2,7 @@
 <template>
   <div class="carousel-wrapper">
     <swiper
-      :modules="[Navigation, Pagination]"
+      :modules="[Navigation, Pagination, Keyboard]"
       :breakpoints="{
         300: { slidesPerView: 2, spaceBetween: 10 },
         640: { slidesPerView: 3, spaceBetween: 16 },
@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Keyboard } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import 'swiper/css';
 import 'swiper/css/navigation';
