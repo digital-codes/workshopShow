@@ -4,7 +4,7 @@
     <swiper
       :modules="[Navigation, Pagination, Keyboard]"
       :breakpoints="{
-        300: { slidesPerView: 2, spaceBetween: 10 },
+        300: { slidesPerView: 1, spaceBetween: 10 },
         640: { slidesPerView: 3, spaceBetween: 16 },
         960: { slidesPerView: 5, spaceBetween: 20 }
       }"
@@ -78,10 +78,11 @@ function onSlideChange(swiper: any) {
 .carousel {
   padding: 1rem 0;
   --swiper-navigation-size: 2rem;
-  --swiper-navigation-top-offset: 7rem;
+  --swiper-navigation-top-offset: 5rem;
   --swiper-navigation-slides-offset: 1rem;
 }
 .card {
+  padding: .8rem;
   cursor: pointer;
   text-align: center;
   border-radius: 6px;
@@ -94,7 +95,6 @@ function onSlideChange(swiper: any) {
 }
 .thumb {
   width: 100%;
-  height: 6rem;
   object-fit: cover;
 }
 .title {
@@ -112,7 +112,7 @@ function onSlideChange(swiper: any) {
   overflow: hidden;            /* hide any stray overflow */
   padding: 0 1rem;             /* optional side padding */
   box-sizing: border-box;
-  height: 8rem
+  height: 6rem
 }
 
 </style>

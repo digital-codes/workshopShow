@@ -4,14 +4,25 @@
     <div class="meta">
       <h2 class="title">{{ item.title }}</h2>
       <p class="author">by {{ item.author }}</p>
+      <a class="doc" :href="item.doc" target="_blank">View Document</a>
       <p class="desc">{{ item.description }}</p>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import type { Item } from '@/data/SampleItems';
-defineProps<{ item: Item }>();  // no const props here!
+interface Props {
+  item: {
+    id: number;
+    title: string;
+    author: string;
+    doc: string;
+    description: string;
+    image: string;
+  };
+}
+
+defineProps<Props>();
 
 </script>
 
@@ -44,6 +55,10 @@ defineProps<{ item: Item }>();  // no const props here!
 .author {
   margin: 0.2rem 0;
   color: #555;
+}
+.doc {
+  margin: 0.2rem 0;
+  color: #357;
 }
 .desc {
   margin-top: 0.6rem;

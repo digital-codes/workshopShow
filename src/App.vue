@@ -25,11 +25,17 @@ import { items as sampleItems } from '@/data/SampleItems';
 // --- State ----------------------------------------------------
 const selectedId = ref(sampleItems[0]?.id  || 0); // start with first item
 
+// rewrite image URLs to be absolute (to work with Vite base URL)
+for (const it of sampleItems) {
+  it.image = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') + '/' + it.image.replace(/^\//, '');
+  it.doc = (import.meta.env.BASE_URL || '/').replace(/\/$/, '') + '/' + it.doc.replace(/^\//, '');
+}
+
 // Items needed for the carousel (only the fields it uses)
 const carouselItems = sampleItems.map(({ id, title, image }) => ({
   id,
   title,
-  image,
+  image
 }));
 
 // Resolve the full object for the main detail view
