@@ -1,6 +1,6 @@
 <!-- src/App.vue -->
 <template>
-  <div class="app">
+  <div class="app x-full">
     <TitleBar />
 
     <div v-if="carouselItems.length > 0">
