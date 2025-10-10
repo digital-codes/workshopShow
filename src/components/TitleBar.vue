@@ -1,7 +1,7 @@
 <template>
   <header class="title-bar">
     <img :src="logo" alt="Logo" class="logo" />
-    <h1 class="app-name">My Gallery</h1>
+    <h1 class="app-name">Workshop Results</h1>
   </header>
 </template>
 
