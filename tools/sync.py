@@ -170,7 +170,7 @@ def main() -> int:
     # Process each workspace
     need_update = False
     for ws in workspaces:
-        print(f"[INFO] Checking workspace: {ws}")
+        #print(f"[INFO] Checking workspace: {ws}")
         copied = sync_workspace(src_root, args.docs, dst_root, ws)
         if copied:
             need_update = True
@@ -178,12 +178,12 @@ def main() -> int:
     if need_update:
         catalogue = []
         for ws in workspaces:
-            print(f"[INFO] Updating workspace: {ws}")
+            #print(f"[INFO] Updating workspace: {ws}")
             entry, next_id = update_data_json_for_workspace(dst_root, ws, args.prefix, next_id)
             if entry:
-                print(f"Adding entry: {entry}", next_id)
+                #print(f"Adding entry: {entry}", next_id)
                 catalogue.append(entry)
-        print("Catalogue:", catalogue)
+        #print("Catalogue:", catalogue)
         # Write back the possibly‑modified catalogue
         save_data_json(dst_root, catalogue)
 
