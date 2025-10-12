@@ -24,15 +24,6 @@ from typing import List, Dict, Any
 # Helper – default metadata for a workspace entry.
 # Adjust titles/authors/descriptions/images as you see fit.
 # ----------------------------------------------------------------------
-DEFAULT_ENTRY = {
-    "id": 0,                           # to be filled in per workspace
-    "title": "Untitled Workspace",
-    "author": "Unknown",
-    "description": "",
-    "doc": "doc.pdf",                     # to be filled in per workspace
-    "image": "/img/default.png",   # placeholder – change per workspace if desired
-}
-
 
 def load_data_json(dst_root: Path) -> List[Dict[str, Any]]:
     """Read existing data.json (if any); otherwise start with an empty list."""
@@ -105,6 +96,9 @@ def update_data_json_for_workspace(
     try:
         with open(dst_root / workspace / "title.txt", "r", encoding="utf-8") as f:
             title = f.read().strip()
+        # check valid title
+        if not title or title.isspace():
+            raise ValueError("Title cannot be empty or whitespace")
         with open(dst_root / workspace / "author.txt", "r", encoding="utf-8") as f:
             author = f.read().strip()
         with open(dst_root / workspace / "description.txt", "r", encoding="utf-8") as f:
@@ -128,8 +122,8 @@ def update_data_json_for_workspace(
             "image": f"{prefix}{workspace}/logo.png",
         }
     except:
-        new_entry = DEFAULT_ENTRY.copy()
-        new_entry.id = next_id
+        print(f"[WARN] Missing metadata files in {dst_root / workspace}; skipping entry", file=sys.stderr)
+        return None, next_id
         
     return new_entry, next_id + 1
 
@@ -169,14 +163,14 @@ def main() -> int:
 
     src_root = args.src.expanduser().resolve()
     dst_root = args.target.expanduser().resolve()
-    workspaces = [d.name for d in src_root.iterdir() if d.is_dir()]
+    workspaces = [d.name for d in src_root.iterdir() if (d.is_dir() and d.name.startswith("jupyter-ws"))]
 
     next_id = 1
 
     # Process each workspace
     need_update = False
     for ws in workspaces:
-        print(f"[INFO] Processing workspace: {ws}")
+        print(f"[INFO] Checking workspace: {ws}")
         copied = sync_workspace(src_root, args.docs, dst_root, ws)
         if copied:
             need_update = True
@@ -184,9 +178,11 @@ def main() -> int:
     if need_update:
         catalogue = []
         for ws in workspaces:
-            print(f"[INFO] Processing workspace: {ws}")
+            print(f"[INFO] Updating workspace: {ws}")
             entry, next_id = update_data_json_for_workspace(dst_root, ws, args.prefix, next_id)
-            catalogue.append(entry)
+            if entry:
+                print(f"Adding entry: {entry}", next_id)
+                catalogue.append(entry)
         print("Catalogue:", catalogue)
         # Write back the possibly‑modified catalogue
         save_data_json(dst_root, catalogue)

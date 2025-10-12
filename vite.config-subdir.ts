@@ -4,7 +4,7 @@ import { fileURLToPath, URL } from 'node:url';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/wsshow/', // Set your subdirectory here
+  base: '/reports/', // Set your subdirectory here
   plugins: [vue()],
   resolve: {
     alias: {
